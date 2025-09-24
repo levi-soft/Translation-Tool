@@ -81,7 +81,22 @@ Extension hỗ trợ 5 AI providers với chất lượng và giá khác nhau:
 1. **Đăng ký**: [openrouter.ai](https://openrouter.ai)
 2. **Lấy API key**: Dashboard → API Keys
 3. **VSCode Setting**: `"Game Text Translator: OpenRouter Api Key"`
-4. **Model**: Extension tự động chọn model tốt nhất
+4. **Chọn Model**: Lựa chọn model AI ưa thích trong settings
+
+**Các Model Có Sẵn:**
+- **Claude 3 Haiku** (mặc định): Nhanh, tiết kiệm cho text game
+- **Claude 3 Sonnet**: Chất lượng tốt hơn cho bản dịch phức tạp
+- **Claude 3 Opus**: Chất lượng cao nhất, đắt hơn
+- **GPT-4o**: Xuất sắc cho text sáng tạo
+- **GPT-4o Mini**: Nhanh và giá phải chăng
+- **GPT-4 Turbo**: Cân bằng tốt giữa chất lượng và tốc độ
+- **GPT-4.1**: Model GPT-4.1 mới nhất với khả năng cải thiện
+- **GPT-4.1 Mini**: Phiên bản nhỏ gọn của GPT-4.1, nhanh hơn và rẻ hơn
+- **GPT-5**: Model GPT tiên tiến nhất (nếu có)
+- **GPT-5 Mini**: GPT-5 nhỏ gọn cho hiệu quả
+- **GPT-3.5 Turbo**: Model cơ sở đáng tin cậy
+- **Gemini Pro/Flash**: Model của Google, tốt cho text kỹ thuật
+- **Llama 3**: Các lựa chọn mã nguồn mở
 
 #### **OpenAI:**
 1. **Đăng ký**: [platform.openai.com](https://platform.openai.com)

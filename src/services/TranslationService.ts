@@ -172,6 +172,7 @@ export class TranslationService {
 
   private async translateWithOpenRouter(text: string, from: string, to: string, systemPrompt: string): Promise<string> {
     const apiKey = this.config.get<string>('openRouterApiKey');
+    const model = this.config.get<string>('openRouterModel', 'anthropic/claude-3-haiku');
     if (!apiKey) {
       throw new Error('OpenRouter API key not configured');
     }
@@ -184,7 +185,7 @@ export class TranslationService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-3-haiku',
+          model: model,
           messages: [
             {
               role: 'system',
