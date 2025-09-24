@@ -1,0 +1,18 @@
+{
+  "welcome_message": "Welcome to the adventure!",
+  "character_name": "Hero",
+  "dialogue": {
+    "npc_greeting": "Hello, traveler! What brings you to our village?",
+    "player_response": "I'm looking for the ancient artifact.",
+    "npc_response": "Ah, the legendary sword! It's said to be guarded by a dragon."
+  },
+  "items": [
+    "Health Potion",
+    "Magic Sword",
+    "Ancient Shield"
+  ],
+  "quests": {
+    "main_quest": "Defeat the dragon and save the kingdom",
+    "side_quest": "Help the villagers with their crops"
+  }
+}
