@@ -193,6 +193,8 @@ Hello, brave adventurer!
 - Preserve formatting and line breaks
 
 #### **📋 .json Files (Game configuration files):**
+
+**Standard Format:**
 ```json
 {
   "welcome": "Welcome to the game!",
@@ -222,7 +224,36 @@ Hello, brave adventurer!
 }
 ```
 
+**🎯 Localization Format (Recommended for translation workflows):**
+```json
+{
+  "hello": "",
+  "hero": "",
+  "sword": "",
+  "shield": "",
+  "potion": ""
+}
+```
+
+**Translation approach:**
+- Auto-detects localization format (key-value with empty/null values)
+- Translates keys as source text
+- Populates values with translations
+
+**Result:**
+```json
+{
+  "hello": "xin chào",
+  "hero": "anh hùng",
+  "sword": "kiếm",
+  "shield": "khiên",
+  "potion": "thuốc"
+}
+```
+
 #### **📊 .csv Files (Game data tables):**
+
+**Standard Format:**
 ```csv
 ID,Name,Description
 1,Sword,A sharp blade
@@ -243,16 +274,58 @@ ID,Name,Description
 3,Thuoc,Phục hồi máu
 ```
 
+**🎯 Localization Format (Recommended for translation workflows):**
+```csv
+Text,Translation
+hello,
+hero,
+sword,
+shield,
+potion,
+```
+
+**Translation approach:**
+- Auto-detects localization format by headers
+- Translates first column (source text)
+- Populates second column (translations)
+- Maintains 2-column structure
+
+**Result:**
+```csv
+Text,Translation
+hello,xin chào
+hero,anh hùng
+sword,kiếm
+shield,khiên
+potion,thuốc
+```
+
 #### **📈 .tsv Files (Tab-separated values):**
 Similar to CSV but uses tabs instead of commas.
 
-**Example:**
+**Standard Format:**
 ```
 ID	Name	Description
 1	Sword	A sharp blade
 ```
 
 **Translate same as CSV.**
+
+**🎯 Localization Format (Recommended):**
+```
+Text	Translation
+hello
+hero
+sword
+```
+
+**Result:**
+```
+Text	Translation
+hello	xin chào
+hero	anh hùng
+sword	kiếm
+```
 
 ### Workflow Examples
 

@@ -111,7 +111,7 @@ async function translateFile() {
 
       progress.report({ increment: 90, message: 'Formatting output...' });
 
-      const outputContent = fileParser.format(translatedContent, fileExtension!);
+      const outputContent = fileParser.format(translatedContent, fileExtension!, content);
 
       progress.report({ increment: 100, message: 'Translation complete!' });
 

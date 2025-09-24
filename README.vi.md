@@ -190,6 +190,8 @@ Hello, brave adventurer!
 - Giữ nguyên format và xuống dòng
 
 #### **📋 .json Files (File cấu hình game):**
+
+**Định dạng tiêu chuẩn:**
 ```json
 {
   "welcome": "Welcome to the game!",
@@ -219,7 +221,36 @@ Hello, brave adventurer!
 }
 ```
 
+**🎯 Định dạng Localization (Khuyến nghị cho quy trình dịch):**
+```json
+{
+  "hello": "",
+  "hero": "",
+  "sword": "",
+  "shield": "",
+  "potion": ""
+}
+```
+
+**Cách dịch:**
+- Tự động phát hiện định dạng localization (key-value với giá trị rỗng)
+- Dịch keys như text gốc
+- Điền values với bản dịch
+
+**Kết quả:**
+```json
+{
+  "hello": "xin chào",
+  "hero": "anh hùng",
+  "sword": "kiếm",
+  "shield": "khiên",
+  "potion": "thuốc"
+}
+```
+
 #### **📊 .csv Files (Bảng dữ liệu game):**
+
+**Định dạng tiêu chuẩn:**
 ```csv
 ID,Name,Description
 1,Sword,A sharp blade
@@ -240,16 +271,58 @@ ID,Name,Description
 3,Thuoc,Phục hồi máu
 ```
 
+**🎯 Định dạng Localization (Khuyến nghị cho quy trình dịch):**
+```csv
+Text,Translation
+hello,
+hero,
+sword,
+shield,
+potion,
+```
+
+**Cách dịch:**
+- Tự động phát hiện định dạng localization theo headers
+- Dịch cột đầu (text gốc)
+- Điền cột thứ 2 (bản dịch)
+- Giữ cấu trúc 2 cột
+
+**Kết quả:**
+```csv
+Text,Translation
+hello,xin chào
+hero,anh hùng
+sword,kiếm
+shield,khiên
+potion,thuốc
+```
+
 #### **📈 .tsv Files (Tab-separated values):**
 Giống CSV nhưng dùng tab thay vì comma.
 
-**Ví dụ:**
+**Định dạng tiêu chuẩn:**
 ```
 ID	Name	Description
 1	Sword	A sharp blade
 ```
 
 **Dịch tương tự CSV.**
+
+**🎯 Định dạng Localization (Khuyến nghị):**
+```
+Text	Translation
+hello
+hero
+sword
+```
+
+**Kết quả:**
+```
+Text	Translation
+hello	xin chào
+hero	anh hùng
+sword	kiếm
+```
 
 ### Workflow Examples (Ví dụ quy trình làm việc)
 
