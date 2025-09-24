@@ -184,6 +184,61 @@ game-text-translator/
 └── game-text-sample.json     # Sample file
 ```
 
+## Troubleshooting
+
+### Common Installation/Build Issues
+
+#### PowerShell Execution Policy Error
+**Error**: `running scripts is disabled on this system`
+**Solution**: Run PowerShell as Administrator and execute:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+#### Node.js/npm Not Found
+**Error**: `'npm' is not recognized`
+**Solution**: Install Node.js 16+ from [nodejs.org](https://nodejs.org/)
+
+#### TypeScript Compilation Errors
+**Error**: `Could not find a declaration file for module 'papaparse'`
+**Solution**: Install type definitions:
+```bash
+npm install --save-dev @types/papaparse
+```
+
+#### VSCE Not Found
+**Error**: `'vsce' is not recognized`
+**Solution**: Install VSCE globally:
+```bash
+npm install -g vsce
+```
+
+### Extension Installation Issues
+
+#### Extension Won't Install
+- Close all VSCode windows before installing
+- Use command: `code --install-extension game-text-translator-0.0.1.vsix`
+- Or manually: VSCode → Extensions → Install from VSIX
+
+#### VSCode Version Too Old
+- Requires VSCode 1.74.0 or higher
+- Update VSCode to latest version
+
+### Runtime Errors
+
+#### Translation Fails
+- Check VSCode Console: Help → Toggle Developer Tools → Console
+- Verify API keys for premium providers (OpenRouter, OpenAI, Google Cloud)
+- Test with free providers first (Google Translate, LibreTranslate)
+
+#### Network/API Errors
+- Ensure stable internet connection
+- Check API key validity and quotas
+- Google Translate: No API key needed
+- Others: Configure keys in VSCode Settings
+
+See [`BUILD.md`](BUILD.md) for comprehensive troubleshooting guide.
+
 ## Contributing
 
 1. Fork the repository

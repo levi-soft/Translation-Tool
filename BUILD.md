@@ -79,16 +79,92 @@ game-text-translator/
 ## Troubleshooting
 
 ### Build Errors
-- Ensure Node.js 16+ is installed
-- Run `npm install` to get dependencies
-- Check TypeScript errors in VSCode
+
+#### Node.js/npm Issues
+**Error**: `'npm' is not recognized`
+- **Solution**: Install Node.js from [nodejs.org](https://nodejs.org/) (version 16+)
+
+**Error**: `File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled`
+- **Solution**: Run PowerShell as Administrator and execute:
+  ```powershell
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+  ```
+- Alternative: Use Command Prompt instead of PowerShell
+
+#### TypeScript Compilation Errors
+**Error**: `Could not find a declaration file for module 'papaparse'`
+- **Solution**: Install type definitions:
+  ```bash
+  npm install --save-dev @types/papaparse
+  ```
+
+**Error**: `Cannot find module 'vscode'`
+- **Solution**: Install VSCode types:
+  ```bash
+  npm install
+  ```
+- Ensure you're in the project directory
+
+#### VSCE (Packaging) Errors
+**Error**: `'vsce' is not recognized`
+- **Solution**: Install VSCE globally:
+  ```bash
+  npm install -g vsce
+  ```
+- Or use npx: `npx vsce package`
 
 ### Installation Issues
+
+#### Extension Installation Fails
 - Close all VSCode windows before installing
-- Use `code --install-extension` command
-- Check VSCode version (requires 1.74.0+)
+- Use the command: `code --install-extension game-text-translator-0.0.1.vsix`
+- Or manually: VSCode → Extensions → Install from VSIX → Select file
+
+#### VSCode Version Issues
+- Requires VSCode 1.74.0 or higher
+- Update VSCode if you have an older version
 
 ### Runtime Errors
-- Check VSCode developer console (Help → Toggle Developer Tools)
-- Verify API keys are configured for premium providers
-- Test with free providers first (Google Translate)
+
+#### Translation Fails
+- Check VSCode developer console: Help → Toggle Developer Tools → Console
+- Verify API keys are configured for premium providers (OpenRouter, OpenAI, Google Cloud)
+- Test with free providers first (Google Translate, LibreTranslate)
+
+#### Network/API Errors
+- Ensure internet connection is stable
+- Check API key validity and quotas
+- For Google Translate: No API key needed
+- For others: Configure keys in VSCode Settings
+
+### Development Issues
+
+#### Extension Doesn't Load in Debug
+- Press F5 in VSCode to launch Extension Development Host
+- Check if compilation succeeded (no TypeScript errors)
+- Verify package.json activation events
+
+#### Hot Reload Not Working
+- Save files to trigger recompilation
+- Check if `npm run watch` is running in terminal
+- Restart Extension Development Host
+
+### Common Windows Issues
+
+#### Path Too Long
+- Move project to a shorter path (e.g., `C:\dev\` instead of `C:\Users\...\`)
+- Or enable long paths in Windows
+
+#### Permission Denied
+- Run commands as Administrator
+- Or use a different directory without permission restrictions
+
+### Getting Help
+
+If you encounter issues not covered here:
+1. Check the [Issues](https://github.com/levi-soft/Translation-Tool/issues) page
+2. Create a new issue with:
+   - Your OS and VSCode version
+   - Node.js version (`node --version`)
+   - Full error message
+   - Steps to reproduce
