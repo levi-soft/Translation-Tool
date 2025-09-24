@@ -86,16 +86,9 @@ Extension supports 5 AI providers with different quality and pricing:
 4. **Choose Model**: Select your preferred AI model in settings
 
 **Available Models:**
-- **x-ai/grok-code-fast-1** (default): Fast Grok model optimized for coding and technical tasks
-- **x-ai/grok-4-fast:free**: Free Grok-4 model, fast and cost-effective
-- **anthropic/claude-sonnet-4**: Latest Claude Sonnet 4, high-quality reasoning
-- **anthropic/claude-3.7-sonnet**: Claude 3.7 Sonnet, advanced capabilities
-- **google/gemini-2.5-pro**: Google's Gemini 2.5 Pro, excellent for complex tasks
-- **google/gemini-2.5-flash**: Gemini 2.5 Flash, fast and efficient
-- **deepseek/deepseek-chat-v3-0324**: DeepSeek V3 chat model
-- **deepseek/deepseek-chat-v3.1:free**: Free DeepSeek V3.1, cost-effective option
-- **openai/gpt-5**: Most advanced GPT-5 model
-- **openai/gpt-4.1-mini**: Compact GPT-4.1 Mini, fast and affordable
+- **x-ai/grok-4-fast:free** (default): Free Grok-4 model, fast and cost-effective for game text
+- **google/gemini-2.5-flash**: Gemini 2.5 Flash, fast and efficient for translation
+- **openai/gpt-4.1-mini**: Compact GPT-4.1 Mini, reliable quality for game localization
 
 #### **OpenAI:**
 1. **Sign up**: [platform.openai.com](https://platform.openai.com)
