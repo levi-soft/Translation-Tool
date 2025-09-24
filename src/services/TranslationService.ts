@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
-import axios from 'axios';
+
+// Declare fetch for Node.js environment
+declare const fetch: (url: string, init?: any) => Promise<any>;
 
 export interface ParsedContent {
   type: 'text' | 'keyValue' | 'array';
@@ -115,18 +117,21 @@ export class TranslationService {
 
   private async translateWithGoogle(text: string, from: string, to: string): Promise<string> {
     try {
-      const response = await axios.get('https://translate.googleapis.com/translate_a/single', {
-        params: {
-          client: 'gtx',
-          sl: from,
-          tl: to,
-          dt: 't',
-          q: text
-        }
-      });
+      const url = new URL('https://translate.googleapis.com/translate_a/single');
+      url.searchParams.set('client', 'gtx');
+      url.searchParams.set('sl', from);
+      url.searchParams.set('tl', to);
+      url.searchParams.set('dt', 't');
+      url.searchParams.set('q', text);
 
-      if (response.data && response.data[0]) {
-        return response.data[0].map((item: any[]) => item[0]).join('');
+      const response = await fetch(url.toString());
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data && data[0]) {
+        return data[0].map((item: any[]) => item[0]).join('');
       }
       throw new Error('Invalid response from Google Translate');
     } catch (error) {
@@ -139,14 +144,25 @@ export class TranslationService {
     const libreUrl = 'https://libretranslate.com/translate'; // Public instance
 
     try {
-      const response = await axios.post(libreUrl, {
-        q: text,
-        source: from,
-        target: to
+      const response = await fetch(libreUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          q: text,
+          source: from,
+          target: to
+        })
       });
 
-      if (response.data && response.data.translatedText) {
-        return response.data.translatedText;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data && data.translatedText) {
+        return data.translatedText;
       }
       throw new Error('Invalid response from LibreTranslate');
     } catch (error) {
@@ -161,27 +177,34 @@ export class TranslationService {
     }
 
     try {
-      const response = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
-        model: 'anthropic/claude-3-haiku',
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt || 'You are a professional translator. Translate the following text accurately.'
-          },
-          {
-            role: 'user',
-            content: `Translate from ${from} to ${to}: ${text}`
-          }
-        ]
-      }, {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-3-haiku',
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt || 'You are a professional translator. Translate the following text accurately.'
+            },
+            {
+              role: 'user',
+              content: `Translate from ${from} to ${to}: ${text}`
+            }
+          ]
+        })
       });
 
-      if (response.data && response.data.choices && response.data.choices[0]) {
-        return response.data.choices[0].message.content.trim();
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data && data.choices && data.choices[0]) {
+        return data.choices[0].message.content.trim();
       }
       throw new Error('Invalid response from OpenRouter');
     } catch (error) {
@@ -196,27 +219,34 @@ export class TranslationService {
     }
 
     try {
-      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: systemPrompt || 'You are a professional translator. Translate the following text accurately.'
-          },
-          {
-            role: 'user',
-            content: `Translate from ${from} to ${to}: ${text}`
-          }
-        ]
-      }, {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt || 'You are a professional translator. Translate the following text accurately.'
+            },
+            {
+              role: 'user',
+              content: `Translate from ${from} to ${to}: ${text}`
+            }
+          ]
+        })
       });
 
-      if (response.data && response.data.choices && response.data.choices[0]) {
-        return response.data.choices[0].message.content.trim();
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data && data.choices && data.choices[0]) {
+        return data.choices[0].message.content.trim();
       }
       throw new Error('Invalid response from OpenAI');
     } catch (error) {
@@ -231,14 +261,25 @@ export class TranslationService {
     }
 
     try {
-      const response = await axios.post(`https://translation.googleapis.com/language/translate/v2?key=${apiKey}`, {
-        q: text,
-        source: from,
-        target: to
+      const response = await fetch(`https://translation.googleapis.com/language/translate/v2?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          q: text,
+          source: from,
+          target: to
+        })
       });
 
-      if (response.data && response.data.data && response.data.data.translations) {
-        return response.data.data.translations[0].translatedText;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data && data.data && data.data.translations) {
+        return data.data.translations[0].translatedText;
       }
       throw new Error('Invalid response from Google Cloud Translation');
     } catch (error) {

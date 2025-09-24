@@ -1,4 +1,3 @@
-import * as Papa from 'papaparse';
 import { ParsedContent } from '../services/TranslationService';
 
 export class FileParser {
@@ -75,24 +74,22 @@ export class FileParser {
   }
 
   private parseCsv(content: string): ParsedContent {
-    const parsed = Papa.parse(content, {
-      header: true,
-      skipEmptyLines: true
-    });
-
-    if (parsed.errors.length > 0) {
-      throw new Error(`CSV parsing error: ${parsed.errors[0].message}`);
+    const lines = content.split('\n').filter(line => line.trim());
+    if (lines.length < 2) {
+      throw new Error('CSV must have at least header and one data row');
     }
 
-    // Convert to key-value format where each row becomes an object
+    const headers = this.parseCsvLine(lines[0]);
     const result: { [key: string]: string } = {};
-    parsed.data.forEach((row: any, index: number) => {
-      Object.keys(row).forEach(key => {
-        if (row[key]) {
-          result[`row_${index}_${key}`] = row[key];
+
+    for (let i = 1; i < lines.length; i++) {
+      const values = this.parseCsvLine(lines[i]);
+      headers.forEach((header, index) => {
+        if (values[index]) {
+          result[`row_${i - 1}_${header}`] = values[index];
         }
       });
-    });
+    }
 
     return {
       type: 'keyValue',
@@ -100,31 +97,58 @@ export class FileParser {
     };
   }
 
+  private parseCsvLine(line: string): string[] {
+    const result: string[] = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        if (inQuotes && line[i + 1] === '"') {
+          current += '"';
+          i++; // skip next quote
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        result.push(current);
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    result.push(current);
+    return result;
+  }
+
   private parseTsv(content: string): ParsedContent {
     // TSV is similar to CSV but with tab delimiter
-    const parsed = Papa.parse(content, {
-      header: true,
-      delimiter: '\t',
-      skipEmptyLines: true
-    });
-
-    if (parsed.errors.length > 0) {
-      throw new Error(`TSV parsing error: ${parsed.errors[0].message}`);
+    const lines = content.split('\n').filter(line => line.trim());
+    if (lines.length < 2) {
+      throw new Error('TSV must have at least header and one data row');
     }
 
+    const headers = this.parseTsvLine(lines[0]);
     const result: { [key: string]: string } = {};
-    parsed.data.forEach((row: any, index: number) => {
-      Object.keys(row).forEach(key => {
-        if (row[key]) {
-          result[`row_${index}_${key}`] = row[key];
+
+    for (let i = 1; i < lines.length; i++) {
+      const values = this.parseTsvLine(lines[i]);
+      headers.forEach((header, index) => {
+        if (values[index]) {
+          result[`row_${i - 1}_${header}`] = values[index];
         }
       });
-    });
+    }
 
     return {
       type: 'keyValue',
       content: result
     };
+  }
+
+  private parseTsvLine(line: string): string[] {
+    return line.split('\t');
   }
 
   private formatTxt(parsedContent: ParsedContent): string {
@@ -154,10 +178,9 @@ export class FileParser {
     }
 
     const obj = parsedContent.content as { [key: string]: string };
-    const rows: any[] = [];
+    const rowMap: { [rowIndex: string]: any } = {};
 
     // Group by row index
-    const rowMap: { [rowIndex: string]: any } = {};
     Object.keys(obj).forEach(key => {
       const parts = key.split('_');
       if (parts.length >= 3) {
@@ -171,10 +194,26 @@ export class FileParser {
       }
     });
 
-    // Convert to array
-    Object.values(rowMap).forEach(row => rows.push(row));
+    // Convert to CSV string
+    const rows = Object.values(rowMap) as any[];
+    if (rows.length === 0) return '';
 
-    return Papa.unparse(rows);
+    const headers = Object.keys(rows[0]);
+    const csvLines = [headers.join(',')];
+
+    rows.forEach(row => {
+      const values = headers.map(header => {
+        const value = row[header] || '';
+        // Simple CSV escaping
+        if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+          return `"${value.replace(/"/g, '""')}"`;
+        }
+        return value;
+      });
+      csvLines.push(values.join(','));
+    });
+
+    return csvLines.join('\n');
   }
 
   private formatTsv(parsedContent: ParsedContent): string {
@@ -183,9 +222,9 @@ export class FileParser {
     }
 
     const obj = parsedContent.content as { [key: string]: string };
-    const rows: any[] = [];
-
     const rowMap: { [rowIndex: string]: any } = {};
+
+    // Group by row index
     Object.keys(obj).forEach(key => {
       const parts = key.split('_');
       if (parts.length >= 3) {
@@ -199,9 +238,19 @@ export class FileParser {
       }
     });
 
-    Object.values(rowMap).forEach(row => rows.push(row));
+    // Convert to TSV string
+    const rows = Object.values(rowMap) as any[];
+    if (rows.length === 0) return '';
 
-    return Papa.unparse(rows, { delimiter: '\t' });
+    const headers = Object.keys(rows[0]);
+    const tsvLines = [headers.join('\t')];
+
+    rows.forEach(row => {
+      const values = headers.map(header => row[header] || '');
+      tsvLines.push(values.join('\t'));
+    });
+
+    return tsvLines.join('\n');
   }
 
   private flattenObject(obj: any, prefix: string = ''): { [key: string]: string } {

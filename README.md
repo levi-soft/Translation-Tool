@@ -36,48 +36,274 @@ code --install-extension game-text-translator-0.0.1.vsix
 
 ## Configuration
 
-Open VSCode Settings and search for "Game Text Translator":
+### Basic Setup
 
-- **Translation Provider**: Choose your preferred translation service
-- **Source Language**: Language code of source text (e.g., en, ja, zh)
-- **Target Language**: Language code for translation (e.g., vi, en, zh)
-- **System Prompt**: Custom prompt for AI translations
-- **Vocabulary**: JSON object with custom term mappings
+1. **Open Settings**: File → Preferences → Settings (or `Ctrl+,`)
+2. **Search**: "game text translator"
+3. **Configure basic options**:
 
-### API Keys
+### Translation Provider (Chọn AI dịch)
 
-For premium providers, configure API keys in settings:
+Extension hỗ trợ 5 AI providers với chất lượng và giá khác nhau:
 
-- **OpenRouter API Key**: Get from [openrouter.ai](https://openrouter.ai)
-- **OpenAI API Key**: Get from [platform.openai.com](https://platform.openai.com)
-- **Google Cloud API Key**: Get from [Google Cloud Console](https://console.cloud.google.com)
+#### **Free Providers (Không cần API key):**
+- **googleTranslate**: Google Translate miễn phí
+  - Ưu: Nhanh, miễn phí
+  - Nhược: Chất lượng cơ bản
+- **libreTranslate**: Open-source AI
+  - Ưu: Privacy, miễn phí
+  - Nhược: Chất lượng trung bình
+
+#### **Premium Providers (Cần API key):**
+- **openRouter**: Truy cập nhiều AI model
+  - Models: Claude-3.5, GPT-4, Gemini, etc.
+  - Giá: Từ $0.001/1K tokens
+- **openAI**: GPT models chính thức
+  - Models: GPT-3.5, GPT-4, GPT-4o
+  - Giá: Từ $0.002/1K tokens
+- **googleCloud**: Google Cloud Translation
+  - Ưu: Chất lượng cao cho ngôn ngữ châu Á
+  - Giá: $20/1M characters
+
+### Language Settings (Cài đặt ngôn ngữ)
+
+- **Source Language**: Ngôn ngữ gốc (en, ja, zh, ko, vi, etc.)
+- **Target Language**: Ngôn ngữ đích (vi, en, zh, ja, etc.)
+
+**Ví dụ:**
+- Game tiếng Anh → Tiếng Việt: `en` → `vi`
+- Game tiếng Nhật → Tiếng Việt: `ja` → `vi`
+- Game tiếng Trung → Tiếng Việt: `zh` → `vi`
+
+### API Keys Setup (Cấu hình API key)
+
+#### **OpenRouter (Khuyến nghị):**
+1. **Đăng ký**: [openrouter.ai](https://openrouter.ai)
+2. **Lấy API key**: Dashboard → API Keys
+3. **VSCode Setting**: `"Game Text Translator: OpenRouter Api Key"`
+4. **Model**: Extension tự động chọn model tốt nhất
+
+#### **OpenAI:**
+1. **Đăng ký**: [platform.openai.com](https://platform.openai.com)
+2. **Lấy API key**: API Keys section
+3. **VSCode Setting**: `"Game Text Translator: OpenAI Api Key"`
+
+#### **Google Cloud:**
+1. **Tạo project**: [Google Cloud Console](https://console.cloud.google.com)
+2. **Enable Translation API**
+3. **Tạo API key**: APIs & Services → Credentials
+4. **VSCode Setting**: `"Game Text Translator: Google Cloud Api Key"`
+
+### Advanced Configuration (Cấu hình nâng cao)
+
+#### **System Prompt (Hướng dẫn AI):**
+Tùy chỉnh cách AI dịch để phù hợp với game:
+
+```text
+You are a professional Vietnamese game translator. Translate naturally while maintaining the game's tone and style. Use appropriate gaming terminology and keep cultural context in mind.
+```
+
+**Ví dụ cho từng thể loại:**
+
+**RPG Fantasy:**
+```
+Translate fantasy RPG text. Keep epic tone. Use "Anh Hùng" for Hero, "Phép Thuật" for Magic, "Rồng" for Dragon.
+```
+
+**Horror Game:**
+```
+Translate horror game text. Maintain suspense and fear. Use tense Vietnamese that creates unease.
+```
+
+**Mobile Game:**
+```
+Translate casual mobile game. Keep fun, light tone. Use simple Vietnamese suitable for all ages.
+```
+
+#### **Vocabulary Dictionary (Từ điển từ vựng):**
+Đảm bảo dịch nhất quán các thuật ngữ đặc biệt:
+
+```json
+{
+  "Hero": "Anh Hùng",
+  "Mana": "Năng Lượng",
+  "Quest": "Nhiệm Vụ",
+  "Inventory": "Túi Đồ",
+  "Level Up": "Lên Cấp",
+  "Boss": "Trùm Cuối",
+  "Dungeon": "Ngục Ngầm",
+  "Spell": "Phép Thuật",
+  "Potion": "Thuốc Phục Hồi",
+  "Guild": "Bang Hội",
+  "Critical Hit": "Đòn Chí Mạng",
+  "Experience": "Kinh Nghiệm"
+}
+```
+
+**Tips:**
+- Thêm tên nhân vật, địa danh đặc biệt
+- Sử dụng cùng một từ cho cùng concept
+- Update từ điển khi gặp thuật ngữ mới
 
 ## Usage
 
-### Translate Selection
-1. Select text in editor
-2. Right-click → "Translate Selection" or Ctrl+Shift+P → "Translate Selection"
-3. Review translation in popup
-4. Click "Apply" to replace
+### Quick Start (Bắt đầu nhanh)
 
-### Translate File
-1. Open a supported file (.txt, .json, .csv, .tsv)
-2. Ctrl+Shift+P → "Translate File"
-3. Wait for batch processing to complete
+#### **1. Dịch Text Đơn Giản (Free):**
+1. **Mở file text** bất kỳ
+2. **Chọn text** cần dịch
+3. **Chuột phải** → **"Translate Selection"**
+4. **Xem preview** và **Apply**
 
-## Supported File Formats
+*Provider mặc định: Google Translate (free)*
 
-### .txt
-Plain text files are translated as-is.
+#### **2. Dịch Toàn Bộ File:**
+1. **Mở file** .txt, .json, .csv, .tsv
+2. **Ctrl+Shift+P** → **"Translate File"**
+3. **Xem progress bar** và chờ hoàn thành
 
-### .json
-- Objects: Translates string values, preserves keys
-- Arrays: Translates string elements
-- Nested objects: Flattened and reconstructed
+### Advanced Usage (Sử dụng nâng cao)
 
-### .csv / .tsv
-- Translates cell values
-- Preserves headers and structure
+#### **Chuyển đổi AI Provider:**
+1. **Settings** → Tìm "translation provider"
+2. **Chọn provider** mong muốn
+3. **Nhập API key** nếu cần (cho premium providers)
+4. **Test dịch** để so sánh chất lượng
+
+#### **Tùy chỉnh cho Game cụ thể:**
+1. **Settings** → "system prompt"
+2. **Viết prompt** phù hợp với thể loại game
+3. **Settings** → "vocabulary"
+4. **Thêm từ điển** thuật ngữ game
+
+### File Format Guide (Hướng dẫn theo định dạng file)
+
+#### **📄 .txt Files (File text thuần):**
+```
+Welcome to the Adventure Game!
+Hello, brave adventurer!
+```
+
+**Cách dịch:**
+- Chọn toàn bộ file hoặc từng đoạn
+- Dịch như text bình thường
+- Giữ nguyên format và xuống dòng
+
+#### **📋 .json Files (File cấu hình game):**
+```json
+{
+  "welcome": "Welcome to the game!",
+  "character": {
+    "name": "Hero",
+    "class": "Warrior"
+  },
+  "items": ["Sword", "Shield", "Potion"]
+}
+```
+
+**Cách dịch:**
+- Extension tự động parse JSON
+- Chỉ dịch **string values**, giữ nguyên **keys**
+- Giữ nguyên cấu trúc JSON
+- Xử lý nested objects và arrays
+
+**Kết quả:**
+```json
+{
+  "welcome": "Chào mừng đến với game!",
+  "character": {
+    "name": "Anh Hùng",
+    "class": "Chiến Binh"
+  },
+  "items": ["Kiếm", "Khiên", "Thuốc"]
+}
+```
+
+#### **📊 .csv Files (Bảng dữ liệu game):**
+```csv
+ID,Name,Description
+1,Sword,A sharp blade
+2,Shield,Protects from attacks
+3,Potion,Restores health
+```
+
+**Cách dịch:**
+- Parse theo hàng và cột
+- Dịch nội dung cells (không dịch headers)
+- Giữ nguyên cấu trúc bảng
+
+**Kết quả:**
+```csv
+ID,Name,Description
+1,Kiếm,Lưỡi kiếm sắc nhọn
+2,Khien,Bảo vệ khỏi tấn công
+3,Thuoc,Phục hồi máu
+```
+
+#### **📈 .tsv Files (Tab-separated values):**
+Giống CSV nhưng dùng tab thay vì comma.
+
+**Ví dụ:**
+```
+ID	Name	Description
+1	Sword	A sharp blade
+```
+
+**Dịch tương tự CSV.**
+
+### Workflow Examples (Ví dụ quy trình làm việc)
+
+#### **🎮 Dịch Game RPG:**
+1. **Setup provider**: OpenRouter (cho chất lượng cao)
+2. **System prompt**:
+   ```
+   Translate RPG game text. Maintain epic fantasy tone.
+   Use "Anh Hùng" for Hero, "Phép Thuật" for Magic.
+   ```
+3. **Vocabulary**:
+   ```json
+   {
+     "Mana": "Năng Lượng",
+     "Quest": "Nhiệm Vụ",
+     "Level": "Cấp Độ"
+   }
+   ```
+4. **Dịch file**: dialogue.json, quests.json, items.csv
+
+#### **📱 Dịch Game Mobile:**
+1. **Setup provider**: Google Translate (free, nhanh)
+2. **System prompt**:
+   ```
+   Translate casual mobile game. Keep fun, simple tone.
+   Use easy Vietnamese for all ages.
+   ```
+3. **Dịch file**: strings.txt, ui.json
+
+#### **👻 Dịch Game Horror:**
+1. **Setup provider**: OpenRouter với Claude
+2. **System prompt**:
+   ```
+   Translate horror game text. Maintain suspense and fear.
+   Use tense Vietnamese that creates unease.
+   ```
+4. **Vocabulary**: Thuật ngữ horror đặc trưng
+
+### Troubleshooting Usage
+
+#### **Dịch không hoạt động:**
+- Check Developer Console có lỗi
+- Verify API key cho premium providers
+- Test với Google Translate trước
+
+#### **JSON dịch sai:**
+- Đảm bảo JSON format đúng
+- Check nested objects được xử lý
+- Review translated JSON có valid không
+
+#### **CSV/TSV lỗi:**
+- Đảm bảo có header row
+- Check delimiter (comma cho CSV, tab cho TSV)
+- Verify encoding UTF-8
 
 ## Development
 
