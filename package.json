@@ -15,7 +15,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:gameTextTranslator.translateSelection"
+    "onCommand:gameTextTranslator.translateSelection",
+    "onCommand:gameTextTranslator.translateFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
