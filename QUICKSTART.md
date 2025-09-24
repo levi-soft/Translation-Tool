@@ -1,45 +1,45 @@
 # 🚀 Game Text Translator - Quick Start Guide
 
-## 1. Cài đặt Extension
+## 1. Install Extension
 
-### Từ GitHub Releases (Khuyến nghị):
-1. Vào [Releases](https://github.com/levi-soft/Translation-Tool/releases)
-2. Download file `.vsix` mới nhất
-3. VSCode: Extensions → Install from VSIX → Chọn file
+### From GitHub Releases (Recommended):
+1. Go to [Releases](https://github.com/levi-soft/Translation-Tool/releases)
+2. Download the latest `.vsix` file
+3. VSCode: Extensions → Install from VSIX → Select file
 
-### Từ VSCode Marketplace (sẽ có sau):
-1. Extensions → Tìm "Game Text Translator"
+### From VSCode Marketplace (Coming Soon):
+1. Extensions → Search "Game Text Translator"
 2. Install
 
-## 2. Test Cơ Bản (Free)
+## 2. Basic Test (Free)
 
-### Dịch Text Nhanh:
-1. **Tạo file** `test.txt`:
+### Quick Text Translation:
+1. **Create file** `test.txt`:
    ```
    Hello world!
    Welcome to the game.
    ```
 
-2. **Chọn text** "Hello world!"
-3. **Chuột phải** → **"Translate Selection"**
-4. **Xem popup** → **Apply**
+2. **Select text** "Hello world!"
+3. **Right-click** → **"Translate Selection"**
+4. **View popup** → **Apply**
 
-*✅ Sử dụng Google Translate miễn phí*
+*✅ Uses free Google Translate*
 
-## 3. Nâng Cấp Chất Lượng (Premium AI)
+## 3. Upgrade Quality (Premium AI)
 
-### Bước 1: Chọn AI Provider
+### Step 1: Choose AI Provider
 ```
 Settings → "game text translator" → "Translation Provider"
 ```
-- **openRouter**: Khuyến nghị (nhiều models, giá rẻ)
-- **openAI**: GPT chính thức
-- **googleCloud**: Chất lượng cao
+- **openRouter**: Recommended (many models, cheap)
+- **openAI**: Official GPT
+- **googleCloud**: High quality
 
-### Bước 2: Nhập API Key
+### Step 2: Enter API Key
 
-#### OpenRouter (Dễ nhất):
-1. [Đăng ký openrouter.ai](https://openrouter.ai)
+#### OpenRouter (Easiest):
+1. [Sign up at openrouter.ai](https://openrouter.ai)
 2. Copy API key
 3. VSCode Settings: `"Game Text Translator: OpenRouter Api Key"`
 
@@ -48,21 +48,21 @@ Settings → "game text translator" → "Translation Provider"
 2. API Keys → Create new
 3. VSCode: `"Game Text Translator: OpenAI Api Key"`
 
-### Bước 3: Test AI
-1. Chọn text dài hơn
-2. Dịch và so sánh chất lượng
+### Step 3: Test AI
+1. Select longer text
+2. Translate and compare quality
 
-## 4. Tùy Chỉnh Cho Game
+## 4. Customize for Game
 
-### System Prompt (Phong cách dịch):
+### System Prompt (Translation Style):
 ```
 Settings → "Game Text Translator: System Prompt"
 
-Ví dụ cho RPG:
+Example for RPG:
 "You are a Vietnamese game translator. Translate RPG dialogue naturally while maintaining epic fantasy tone. Use appropriate gaming terminology."
 ```
 
-### Từ Điển Từ Vựng:
+### Vocabulary Dictionary:
 ```
 Settings → "Game Text Translator: Vocabulary"
 
@@ -74,11 +74,11 @@ Settings → "Game Text Translator: Vocabulary"
 }
 ```
 
-## 5. Dịch Các Loại File
+## 5. Translate Different File Types
 
 ### 📄 Text File (.txt):
-- Chọn text → Translate Selection
-- Hoặc mở file → Translate File
+- Select text → Translate Selection
+- Or open file → Translate File
 
 ### 📋 JSON File (.json):
 ```json
@@ -87,7 +87,7 @@ Settings → "Game Text Translator: Vocabulary"
   "items": ["Sword", "Shield"]
 }
 ```
-→ Chỉ dịch values, giữ keys
+→ Translates only values, preserves keys
 
 ### 📊 CSV/TSV Files:
 ```
@@ -95,42 +95,42 @@ Name,Description
 Sword,A sharp blade
 Shield,Protects you
 ```
-→ Dịch cells, giữ headers
+→ Translates cells, preserves headers
 
-## 6. Workflow Phổ Biến
+## 6. Common Workflows
 
 ### 🎮 Game Developer Workflow:
-1. **Setup**: OpenRouter + custom prompt cho thể loại game
-2. **Vocabulary**: Thêm thuật ngữ game đặc trưng
-3. **Batch**: Dịch toàn bộ thư mục text game
-4. **Review**: Kiểm tra translations
-5. **Export**: Sử dụng trong game
+1. **Setup**: OpenRouter + custom prompt for game genre
+2. **Vocabulary**: Add specific game terms
+3. **Batch**: Translate entire game text folder
+4. **Review**: Check translations
+5. **Export**: Use in game
 
 ### 📱 Mobile Game Workflow:
-1. **Setup**: Google Translate (nhanh, free)
+1. **Setup**: Google Translate (fast, free)
 2. **Files**: strings.json, ui.csv
-3. **Quick**: Dịch từng file nhỏ
+3. **Quick**: Translate individual small files
 
 ## 7. Troubleshooting
 
-### Extension không hoạt động:
+### Extension not working:
 - Restart VSCode
 - Check Developer Console (Help → Toggle Developer Tools)
 
-### API key không hoạt động:
-- Verify key chưa expired
+### API key not working:
+- Verify key not expired
 - Check quota/limits
-- Test với free provider
+- Test with free provider
 
-### File không dịch được:
+### File not translatable:
 - Check file encoding (UTF-8)
-- Verify JSON/CSV format đúng
-- Try smaller file trước
+- Verify JSON/CSV format is correct
+- Try smaller file first
 
-## 🎯 Tóm Tắt
+## 🎯 Summary
 
-**Bắt đầu**: Google Translate (free)
-**Nâng cao**: OpenRouter + custom settings
-**Pro**: Từ điển + system prompts
+**Start**: Google Translate (free)
+**Advanced**: OpenRouter + custom settings
+**Pro**: Dictionary + system prompts
 
-**Extension đã sẵn sàng sử dụng!** 🎉
+**Extension ready to use!** 🎉
