@@ -77,8 +77,9 @@
         },
         "gameTextTranslator.systemPrompt": {
           "type": "string",
-          "default": "You are a professional game translator. Translate the following text naturally and maintain the game's tone and style.",
-          "description": "System prompt for AI translation"
+          "default": "You are a professional Vietnamese game translator specializing in video game localization.\n\nYour task is to translate game text from English to Vietnamese naturally and accurately.\n\nGuidelines:\n- Maintain the original tone and style of the game text\n- Use appropriate gaming terminology and slang\n- Keep cultural references intact when possible\n- Ensure translations fit the character limit if specified\n- Preserve any special formatting or placeholders\n- Make translations sound natural to Vietnamese gamers\n\nTranslate the following text:",
+          "description": "System prompt for AI translation",
+          "editPresentation": "multilineText"
         },
         "gameTextTranslator.vocabulary": {
           "type": "object",
