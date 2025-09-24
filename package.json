@@ -15,8 +15,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:gameTextTranslator.translateSelection",
-    "onCommand:gameTextTranslator.translateFile"
+    "onCommand:gameTextTranslator.translateSelection"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -24,10 +23,6 @@
       {
         "command": "gameTextTranslator.translateSelection",
         "title": "Translate Selection"
-      },
-      {
-        "command": "gameTextTranslator.translateFile",
-        "title": "Translate File"
       }
     ],
     "menus": {
@@ -40,9 +35,6 @@
       "commandPalette": [
         {
           "command": "gameTextTranslator.translateSelection"
-        },
-        {
-          "command": "gameTextTranslator.translateFile"
         }
       ]
     },

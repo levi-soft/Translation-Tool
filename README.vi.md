@@ -149,18 +149,13 @@ Translate casual mobile game. Keep fun, light tone. Use simple Vietnamese suitab
 
 ### Quick Start (Bắt đầu nhanh)
 
-#### **1. Dịch Text Đơn Giản (Free):**
+#### **Dịch Text Selection:**
 1. **Mở file text** bất kỳ
-2. **Chọn text** cần dịch
+2. **Chọn text** cần dịch (có thể chọn nhiều dòng)
 3. **Chuột phải** → **"Translate Selection"**
 4. **Xem preview** và **Apply**
 
 *Provider mặc định: Google Translate (free)*
-
-#### **2. Dịch Toàn Bộ File:**
-1. **Mở file** .txt, .json, .csv, .tsv
-2. **Ctrl+Shift+P** → **"Translate File"**
-3. **Xem progress bar** và chờ hoàn thành
 
 ### Advanced Usage (Sử dụng nâng cao)
 
@@ -176,153 +171,6 @@ Translate casual mobile game. Keep fun, light tone. Use simple Vietnamese suitab
 3. **Settings** → "vocabulary"
 4. **Thêm từ điển** thuật ngữ game
 
-### File Format Guide (Hướng dẫn theo định dạng file)
-
-#### **📄 .txt Files (File text thuần):**
-```
-Welcome to the Adventure Game!
-Hello, brave adventurer!
-```
-
-**Cách dịch:**
-- Chọn toàn bộ file hoặc từng đoạn
-- Dịch như text bình thường
-- Giữ nguyên format và xuống dòng
-
-#### **📋 .json Files (File cấu hình game):**
-
-**Định dạng tiêu chuẩn:**
-```json
-{
-  "welcome": "Welcome to the game!",
-  "character": {
-    "name": "Hero",
-    "class": "Warrior"
-  },
-  "items": ["Sword", "Shield", "Potion"]
-}
-```
-
-**Cách dịch:**
-- Extension tự động parse JSON
-- Chỉ dịch **string values**, giữ nguyên **keys**
-- Giữ nguyên cấu trúc JSON
-- Xử lý nested objects và arrays
-
-**Kết quả:**
-```json
-{
-  "welcome": "Chào mừng đến với game!",
-  "character": {
-    "name": "Anh Hùng",
-    "class": "Chiến Binh"
-  },
-  "items": ["Kiếm", "Khiên", "Thuốc"]
-}
-```
-
-**🎯 Định dạng Localization (Khuyến nghị cho quy trình dịch):**
-```json
-{
-  "hello": "",
-  "hero": "",
-  "sword": "",
-  "shield": "",
-  "potion": ""
-}
-```
-
-**Cách dịch:**
-- Tự động phát hiện định dạng localization (key-value với giá trị rỗng)
-- Dịch keys như text gốc
-- Điền values với bản dịch
-
-**Kết quả:**
-```json
-{
-  "hello": "xin chào",
-  "hero": "anh hùng",
-  "sword": "kiếm",
-  "shield": "khiên",
-  "potion": "thuốc"
-}
-```
-
-#### **📊 .csv Files (Bảng dữ liệu game):**
-
-**Định dạng tiêu chuẩn:**
-```csv
-ID,Name,Description
-1,Sword,A sharp blade
-2,Shield,Protects from attacks
-3,Potion,Restores health
-```
-
-**Cách dịch:**
-- Parse theo hàng và cột
-- Dịch nội dung cells (không dịch headers)
-- Giữ nguyên cấu trúc bảng
-
-**Kết quả:**
-```csv
-ID,Name,Description
-1,Kiếm,Lưỡi kiếm sắc nhọn
-2,Khien,Bảo vệ khỏi tấn công
-3,Thuoc,Phục hồi máu
-```
-
-**🎯 Định dạng Localization (Khuyến nghị cho quy trình dịch):**
-```csv
-Text,Translation
-hello,
-hero,
-sword,
-shield,
-potion,
-```
-
-**Cách dịch:**
-- Tự động phát hiện định dạng localization theo headers
-- Dịch cột đầu (text gốc)
-- Điền cột thứ 2 (bản dịch)
-- Giữ cấu trúc 2 cột
-
-**Kết quả:**
-```csv
-Text,Translation
-hello,xin chào
-hero,anh hùng
-sword,kiếm
-shield,khiên
-potion,thuốc
-```
-
-#### **📈 .tsv Files (Tab-separated values):**
-Giống CSV nhưng dùng tab thay vì comma.
-
-**Định dạng tiêu chuẩn:**
-```
-ID	Name	Description
-1	Sword	A sharp blade
-```
-
-**Dịch tương tự CSV.**
-
-**🎯 Định dạng Localization (Khuyến nghị):**
-```
-Text	Translation
-hello
-hero
-sword
-```
-
-**Kết quả:**
-```
-Text	Translation
-hello	xin chào
-hero	anh hùng
-sword	kiếm
-```
 
 ### Workflow Examples (Ví dụ quy trình làm việc)
 
@@ -341,7 +189,7 @@ sword	kiếm
      "Level": "Cấp Độ"
    }
    ```
-4. **Dịch file**: dialogue.json, quests.json, items.csv
+4. **Dịch text selections** từ game scripts và dialogue
 
 #### **📱 Dịch Game Mobile:**
 1. **Setup provider**: Google Translate (free, nhanh)
@@ -350,7 +198,7 @@ sword	kiếm
    Translate casual mobile game. Keep fun, simple tone.
    Use easy Vietnamese for all ages.
    ```
-3. **Dịch file**: strings.txt, ui.json
+3. **Dịch text selections** từ UI strings và messages
 
 #### **👻 Dịch Game Horror:**
 1. **Setup provider**: OpenRouter với Claude
@@ -359,7 +207,8 @@ sword	kiếm
    Translate horror game text. Maintain suspense and fear.
    Use tense Vietnamese that creates unease.
    ```
-4. **Vocabulary**: Thuật ngữ horror đặc trưng
+3. **Vocabulary**: Thuật ngữ horror đặc trưng
+4. **Dịch text selections** từ scary dialogue và descriptions
 
 ### Troubleshooting Usage
 
@@ -448,7 +297,7 @@ Update `package.json` with your publisher info:
 
 ### 1. Create Repository
 1. Go to [GitHub.com](https://github.com) and create a new repository
-2. Name it `game-text-translator` or similar
+2. Name it `Translation-Tool` or similar
 3. Don't initialize with README (we already have one)
 
 ### 2. Push to GitHub
@@ -457,7 +306,7 @@ git init
 git add .
 git commit -m "Initial commit: Game Text Translator VSCode extension"
 git branch -M main
-git remote add origin https://github.com/your-username/game-text-translator.git
+git remote add origin https://github.com/levi-soft/Translation-Tool.git
 git push -u origin main
 ```
 

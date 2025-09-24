@@ -11,11 +11,10 @@ A VSCode extension for translating game text files with AI support. Supports mul
 ## Features
 
 - **Multiple Translation Providers**: Google Translate (free), LibreTranslate, OpenRouter, OpenAI, Google Cloud Translation
-- **File Format Support**: .txt, .json, .csv, .tsv
 - **Smart Translation**: Apply custom vocabulary before translation
-- **Batch Processing**: Translate entire files with progress tracking
 - **System Prompts**: Customize AI behavior for game-specific translations
 - **Preview Mode**: Review translations before applying
+- **Multi-line Support**: Translate multiple lines of selected text
 
 ## Installation
 
@@ -23,14 +22,14 @@ A VSCode extension for translating game text files with AI support. Supports mul
 Search for "Game Text Translator" in VSCode Extensions and install.
 
 ### Option 2: From GitHub Releases
-1. Go to [Releases](https://github.com/your-username/game-text-translator/releases)
+1. Go to [Releases](https://github.com/levi-soft/Translation-Tool/releases)
 2. Download the latest `.vsix` file
 3. In VSCode: Extensions → Install from VSIX...
 4. Select the downloaded file
 
 ### Option 3: Build from Source
 ```bash
-git clone https://github.com/your-username/game-text-translator.git
+git clone https://github.com/levi-soft/Translation-Tool.git
 cd game-text-translator
 npm install
 npm run compile
@@ -152,18 +151,13 @@ Ensure consistent translation of special terms:
 
 ### Quick Start
 
-#### **1. Translate Simple Text (Free):**
+#### **Translate Text Selection:**
 1. **Open any text file**
-2. **Select text** to translate
+2. **Select text** to translate (can select multiple lines)
 3. **Right-click** → **"Translate Selection"**
 4. **View preview** and **Apply**
 
 *Default provider: Google Translate (free)*
-
-#### **2. Translate Entire File:**
-1. **Open** .txt, .json, .csv, .tsv file
-2. **Ctrl+Shift+P** → **"Translate File"**
-3. **Watch progress bar** and wait for completion
 
 ### Advanced Usage
 
@@ -179,153 +173,6 @@ Ensure consistent translation of special terms:
 3. **Settings** → "vocabulary"
 4. **Add dictionary** for game terms
 
-### File Format Guide
-
-#### **📄 .txt Files (Plain text files):**
-```
-Welcome to the Adventure Game!
-Hello, brave adventurer!
-```
-
-**Translation approach:**
-- Select entire file or individual segments
-- Translate as regular text
-- Preserve formatting and line breaks
-
-#### **📋 .json Files (Game configuration files):**
-
-**Standard Format:**
-```json
-{
-  "welcome": "Welcome to the game!",
-  "character": {
-    "name": "Hero",
-    "class": "Warrior"
-  },
-  "items": ["Sword", "Shield", "Potion"]
-}
-```
-
-**Translation approach:**
-- Extension automatically parses JSON
-- Translates only **string values**, preserves **keys**
-- Maintains JSON structure
-- Handles nested objects and arrays
-
-**Result:**
-```json
-{
-  "welcome": "Chào mừng đến với game!",
-  "character": {
-    "name": "Anh Hùng",
-    "class": "Chiến Binh"
-  },
-  "items": ["Kiếm", "Khiên", "Thuốc"]
-}
-```
-
-**🎯 Localization Format (Recommended for translation workflows):**
-```json
-{
-  "hello": "",
-  "hero": "",
-  "sword": "",
-  "shield": "",
-  "potion": ""
-}
-```
-
-**Translation approach:**
-- Auto-detects localization format (key-value with empty/null values)
-- Translates keys as source text
-- Populates values with translations
-
-**Result:**
-```json
-{
-  "hello": "xin chào",
-  "hero": "anh hùng",
-  "sword": "kiếm",
-  "shield": "khiên",
-  "potion": "thuốc"
-}
-```
-
-#### **📊 .csv Files (Game data tables):**
-
-**Standard Format:**
-```csv
-ID,Name,Description
-1,Sword,A sharp blade
-2,Shield,Protects from attacks
-3,Potion,Restores health
-```
-
-**Translation approach:**
-- Parses by rows and columns
-- Translates cell content (headers unchanged)
-- Preserves table structure
-
-**Result:**
-```csv
-ID,Name,Description
-1,Kiếm,Lưỡi kiếm sắc nhọn
-2,Khien,Bảo vệ khỏi tấn công
-3,Thuoc,Phục hồi máu
-```
-
-**🎯 Localization Format (Recommended for translation workflows):**
-```csv
-Text,Translation
-hello,
-hero,
-sword,
-shield,
-potion,
-```
-
-**Translation approach:**
-- Auto-detects localization format by headers
-- Translates first column (source text)
-- Populates second column (translations)
-- Maintains 2-column structure
-
-**Result:**
-```csv
-Text,Translation
-hello,xin chào
-hero,anh hùng
-sword,kiếm
-shield,khiên
-potion,thuốc
-```
-
-#### **📈 .tsv Files (Tab-separated values):**
-Similar to CSV but uses tabs instead of commas.
-
-**Standard Format:**
-```
-ID	Name	Description
-1	Sword	A sharp blade
-```
-
-**Translate same as CSV.**
-
-**🎯 Localization Format (Recommended):**
-```
-Text	Translation
-hello
-hero
-sword
-```
-
-**Result:**
-```
-Text	Translation
-hello	xin chào
-hero	anh hùng
-sword	kiếm
-```
 
 ### Workflow Examples
 
@@ -344,7 +191,7 @@ sword	kiếm
      "Level": "Cấp Độ"
    }
    ```
-4. **Translate files**: dialogue.json, quests.json, items.csv
+4. **Translate text selections** from game scripts and dialogue
 
 #### **📱 Mobile Game Translation:**
 1. **Setup provider**: Google Translate (free, fast)
@@ -353,7 +200,7 @@ sword	kiếm
    Translate casual mobile game. Keep fun, simple tone.
    Use easy Vietnamese for all ages.
    ```
-3. **Translate files**: strings.txt, ui.json
+3. **Translate text selections** from UI strings and messages
 
 #### **👻 Horror Game Translation:**
 1. **Setup provider**: OpenRouter with Claude
@@ -362,7 +209,8 @@ sword	kiếm
    Translate horror game text. Maintain suspense and fear.
    Use tense Vietnamese that creates unease.
    ```
-4. **Vocabulary**: Horror-specific terms
+3. **Vocabulary**: Horror-specific terms
+4. **Translate text selections** from scary dialogue and descriptions
 
 ### Troubleshooting Usage
 
@@ -389,7 +237,7 @@ sword	kiếm
 
 ### Setup
 ```bash
-git clone https://github.com/your-username/game-text-translator.git
+git clone https://github.com/levi-soft/Translation-Tool.git
 cd game-text-translator
 npm install
 npm run compile
@@ -451,7 +299,7 @@ Update `package.json` with your publisher info:
 
 ### 1. Create Repository
 1. Go to [GitHub.com](https://github.com) and create a new repository
-2. Name it `game-text-translator` or similar
+2. Name it `Translation-Tool` or similar
 3. Don't initialize with README (we already have one)
 
 ### 2. Push to GitHub
@@ -460,7 +308,7 @@ git init
 git add .
 git commit -m "Initial commit: Game Text Translator VSCode extension"
 git branch -M main
-git remote add origin https://github.com/your-username/game-text-translator.git
+git remote add origin https://github.com/levi-soft/Translation-Tool.git
 git push -u origin main
 ```
 
